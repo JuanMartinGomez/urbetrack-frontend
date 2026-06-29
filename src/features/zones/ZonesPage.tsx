@@ -1,7 +1,9 @@
+import { useNavigate } from "react-router-dom";
 import { useZones } from "../../hooks/useZones";
 
 export default function ZonesPage() {
   const { data: zones, isLoading, isError } = useZones();
+  const navigate = useNavigate();
 
   return (
     <div className="flex flex-col gap-6">
@@ -13,9 +15,11 @@ export default function ZonesPage() {
           {zones.map((zone) => (
             <div
               key={zone.id}
-              className="bg-white rounded-2xl shadow-sm px-6 py-4   transition-shadow flex items-center justify-between"
+              onClick={() => navigate(`/zones/${zone.id}`)}
+              className="bg-white rounded-2xl shadow-sm px-6 py-4 cursor-pointer hover:shadow-md transition-shadow flex items-center justify-between"
             >
               <span className="text-gray-700 font-medium">{zone.name}</span>
+              <span className="text-gray-400 text-sm">→</span>
             </div>
           ))}
         </div>
