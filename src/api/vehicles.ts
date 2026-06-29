@@ -2,7 +2,7 @@ import { BASE_URL } from './client'
 import type { Vehicle } from '../types'
 import type { VehicleFormData } from '../schemas'
 
-export interface VehicleFilters {
+export interface VehicleFilters extends Record<string, string | undefined> {
     status?: string
     type?: string
     zoneId?: string
