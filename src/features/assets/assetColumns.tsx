@@ -1,5 +1,11 @@
 import type { Column } from "../../components/Table";
-import type { Asset, AssetStatus } from "../../types";
+import type { Asset, AssetStatus, AssetType } from "../../types";
+
+const typeLabel: Record<AssetType, string> = {
+  BIN: "Tacho",
+  CONTAINER: "Contenedor",
+  BENCH: "Banco",
+};
 
 const statusLabel: Record<AssetStatus, string> = {
   OK: "OK",
@@ -17,10 +23,11 @@ const statusColors: Record<AssetStatus, string> = {
 
 export const assetColumns: Column<Asset>[] = [
   {
-    label: "Tipo",
+    label: "Tiposss",
     sortKey: "type",
     width: "120px",
-    render: (a) => <span className="text-gray-700">{a.type}</span>,
+    sortValue: (a) => typeLabel[a.type],
+    render: (a) => <span className="text-gray-700">{typeLabel[a.type]}</span>,
   },
   {
     label: "Dirección",

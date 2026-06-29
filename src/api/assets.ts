@@ -2,7 +2,7 @@ import { BASE_URL } from './client'
 import type { Asset } from '../types'
 import type { AssetFormData } from '../schemas'
 
-export interface AssetFilters {
+export interface AssetFilters extends Record<string, string | undefined> {
     status?: string
     type?: string
 }
