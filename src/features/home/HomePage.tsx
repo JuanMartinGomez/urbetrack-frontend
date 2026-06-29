@@ -2,7 +2,7 @@ import { useHomeStats } from "../../hooks/useHomeStats";
 import StatCard from "../../components/StatCard";
 
 export default function HomePage() {
-  const { assets, incidents, vehicles } = useHomeStats();
+  const { assets, incidents, vehicles, zones } = useHomeStats();
 
   const damagedAssets =
     assets.data?.filter((a) => a.status === "DAMAGED" || a.status === "FULL")
@@ -46,6 +46,15 @@ export default function HomePage() {
           to="/vehicles"
           isLoading={vehicles.isLoading}
           isError={vehicles.isError}
+        />
+        <StatCard
+          title="Zonas"
+          total={zones.data?.length ?? 0}
+          detail="zonas registradas"
+          icon="📍"
+          to="/zones"
+          isLoading={zones.isLoading}
+          isError={zones.isError}
         />
       </div>
     </div>
