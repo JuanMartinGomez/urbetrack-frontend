@@ -21,9 +21,9 @@ const statusColors: Record<AssetStatus, string> = {
   OUT_OF_SERVICE: "bg-gray-100 text-gray-600",
 };
 
-export const assetColumns: Column<Asset>[] = [
+export const AssetColumns: Column<Asset>[] = [
   {
-    label: "Tiposss",
+    label: "Tipos",
     sortKey: "type",
     width: "120px",
     sortValue: (a) => typeLabel[a.type],
