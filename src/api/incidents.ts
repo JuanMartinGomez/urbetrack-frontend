@@ -2,7 +2,7 @@ import { BASE_URL } from './client'
 import type { Incident } from '../types'
 import type { IncidentFormData } from '../schemas'
 
-export interface IncidentFilters {
+export interface IncidentFilters extends Record<string, string | undefined> {
     status?: string
     type?: string
     zoneId?: string

@@ -1,11 +1,15 @@
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useIncidents } from "../../hooks/useIncidents";
 import { useIncidentStore } from "../../store/incidentStore";
 import { getIncidentColumns } from "./IncidentColumns";
 import Table from "../../components/Table";
+import Filters from "../../components/Filters";
+import { IncidentFilters } from "./IncidentFilters";
+import type { IncidentFilters as IIncidentFilters } from "../../api/incidents";
 
 export default function IncidentsPage() {
-  const { data: incidents, isLoading, isError } = useIncidents();
+  const [filters, setFilters] = useState<IIncidentFilters>({});
+  const { data: incidents, isLoading, isError } = useIncidents(filters);
   const {
     incidents: localIncidents,
     setIncidents,
@@ -24,6 +28,12 @@ export default function IncidentsPage() {
         <h1 className="text-xl font-semibold text-gray-700">Incidentes</h1>
       </div>
 
+      <Filters
+        config={IncidentFilters}
+        values={filters}
+        onChange={(v) => setFilters(v as IIncidentFilters)}
+      />
+
       {isLoading && (
         <p className="text-gray-400 text-sm">Cargando incidentes...</p>
       )}
@@ -34,7 +44,7 @@ export default function IncidentsPage() {
         <Table
           data={localIncidents}
           keyExtractor={(i) => i.id}
-          pageSize={20}
+          pageSize={10}
           columns={columns}
         />
       )}
