@@ -1,5 +1,6 @@
 import type { Column } from "../../components/Table";
 import type { Asset, AssetStatus, AssetType } from "../../types";
+import type { Zone } from "../../types";
 
 const typeLabel: Record<AssetType, string> = {
   BIN: "Tacho",
@@ -21,9 +22,9 @@ const statusColors: Record<AssetStatus, string> = {
   OUT_OF_SERVICE: "bg-gray-100 text-gray-600",
 };
 
-export const AssetColumns: Column<Asset>[] = [
+export const getAssetColumns = (zones: Zone[] = []): Column<Asset>[] => [
   {
-    label: "Tipos",
+    label: "Tipo",
     sortKey: "type",
     width: "120px",
     sortValue: (a) => typeLabel[a.type],
@@ -38,7 +39,12 @@ export const AssetColumns: Column<Asset>[] = [
     label: "Zona",
     sortKey: "zoneId",
     width: "120px",
-    render: (a) => <span className="text-gray-500">Zona {a.zoneId}</span>,
+    sortValue: (a) => zones.find((z) => z.id === a.zoneId)?.name ?? a.zoneId,
+    render: (a) => (
+      <span className="text-gray-500">
+        {zones.find((z) => z.id === a.zoneId)?.name ?? `Zona ${a.zoneId}`}
+      </span>
+    ),
   },
   {
     label: "Estado",

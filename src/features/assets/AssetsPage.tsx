@@ -1,11 +1,12 @@
 import { useState } from "react";
 import { useAssets } from "../../hooks/useAssets";
+import { useZones } from "../../hooks/useZones";
 import Table from "../../components/Table";
 import Filters from "../../components/Filters";
 import AssetForm from "./AssetForm";
 import Modal from "../../components/Modal";
 import Toast from "../../components/Toast";
-import { AssetColumns } from "./AssetColumns";
+import { getAssetColumns } from "./AssetColumns";
 import { AssetFilters } from "./AssetFilters";
 import type { AssetFilters as IAssetFilters } from "../../api/assets";
 
@@ -14,11 +15,14 @@ export default function AssetsPage() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [showToast, setShowToast] = useState(false);
   const { data: assets, isLoading, isError } = useAssets(filters);
+  const { data: zones } = useZones();
 
   const handleSuccess = () => {
     setIsModalOpen(false);
     setShowToast(true);
   };
+
+  const columns = getAssetColumns(zones);
 
   return (
     <div className="flex flex-col gap-6">
@@ -46,7 +50,7 @@ export default function AssetsPage() {
           data={assets}
           keyExtractor={(a) => a.id}
           pageSize={20}
-          columns={AssetColumns}
+          columns={columns}
         />
       )}
       {isModalOpen && (

@@ -5,6 +5,7 @@ import AssetsPage from "./features/assets/AssetsPage";
 import IncidentsPage from "./features/incidents/IncidentsPage";
 import VehiclesPage from "./features/vehicles/VehiclesPage";
 import ZonesPage from "./features/zones/ZonesPage";
+import ZoneDetailPage from "./features/zones/ZoneDetailPage";
 
 export const router = createBrowserRouter([
   {
@@ -16,6 +17,7 @@ export const router = createBrowserRouter([
       { path: "incidents", element: <IncidentsPage /> },
       { path: "vehicles", element: <VehiclesPage /> },
       { path: "zones", element: <ZonesPage /> },
+      { path: "zones/:id", element: <ZoneDetailPage /> },
     ],
   },
 ]);
