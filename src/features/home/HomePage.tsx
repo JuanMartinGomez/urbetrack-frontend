@@ -2,7 +2,7 @@ import { useHomeStats } from "../../hooks/useHomeStats";
 import StatCard from "../../components/StatCard";
 
 export default function HomePage() {
-  const { assets, incidents } = useHomeStats();
+  const { assets, incidents, vehicles } = useHomeStats();
 
   const damagedAssets =
     assets.data?.filter((a) => a.status === "DAMAGED" || a.status === "FULL")
@@ -12,6 +12,9 @@ export default function HomePage() {
     incidents.data?.filter(
       (i) => i.status === "REPORTED" || i.status === "IN_PROGRESS",
     ).length ?? 0;
+
+  const activeVehicles =
+    vehicles.data?.filter((v) => v.status === "ACTIVE").length ?? 0;
 
   return (
     <div className="flex flex-col gap-6">
@@ -34,6 +37,15 @@ export default function HomePage() {
           to="/incidents"
           isLoading={incidents.isLoading}
           isError={incidents.isError}
+        />
+        <StatCard
+          title="Vehículos"
+          total={vehicles.data?.length ?? 0}
+          detail={`${activeVehicles} activos`}
+          icon="🚛"
+          to="/vehicles"
+          isLoading={vehicles.isLoading}
+          isError={vehicles.isError}
         />
       </div>
     </div>

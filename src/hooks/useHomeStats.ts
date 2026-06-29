@@ -1,14 +1,15 @@
 import { useQueries } from '@tanstack/react-query'
-import { getAssets } from '../api/assets'
-import { getIncidents } from '../api/incidents'
+import { incidentsQuery } from './useIncidents'
+import { assetsQuery } from './useAssets'
+import { vehiclesQuery } from './useVehicles'
 
 export function useHomeStats() {
-    const [assets, incidents] = useQueries({
+    const [incidents, assets, vehicles] = useQueries({
         queries: [
-            { queryKey: ['assets'], queryFn: () => getAssets() },
-            { queryKey: ['incidents'], queryFn: () => getIncidents() },
+            incidentsQuery(),
+            assetsQuery(),
+            vehiclesQuery(),
         ],
     })
-
-    return { assets, incidents }
+    return { incidents, assets, vehicles }
 }
